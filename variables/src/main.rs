@@ -21,6 +21,7 @@ fn main() {
 
     println!("The value of x is: {}", y);
 
+    // shadowing 的变量，类型是可变的
     let spaces = "   ";
     let spaces = spaces.len();
     println!("spaces: {}", spaces);
@@ -65,4 +66,9 @@ fn main() {
 
     let arr = [3;5];
     println!("arr[0] {}", arr[0]);
+
+    // 测试溢出，这里编译会直接报错
+    let overflow: u8 = "255".parse().expect("msg");
+    let overflow = overflow + 1;
+    println!("overflow: {}", overflow);
 }
