@@ -67,7 +67,9 @@ fn main() {
     let arr = [3;5];
     println!("arr[0] {}", arr[0]);
 
-    // 测试溢出，这里编译会直接报错
+    // 测试溢出，如果溢出是显式的，那编译检查时，就直接不通过
+    // let overflow: u8 = 255;
+    // 如果溢出是隐式的，debug运行时，会panic；release后，运行二进制，程序不会报错，运行会进入循环模式
     let overflow: u8 = "255".parse().expect("msg");
     let overflow = overflow + 1;
     println!("overflow: {}", overflow);

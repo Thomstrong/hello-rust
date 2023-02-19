@@ -17,7 +17,8 @@ fn main() {
     println!("s2: {s2}");
 
     let mut s3 = s2.clone();
-    println!("s2: {s2}");
+    println!("s2: {s2}"); // 不会报错，s3是s2 clone函数生成的
+    println!("s3: {s3}");
 
     s3 = takes_and_gives_back(s3);
     println!("s3:{s3}");
@@ -40,12 +41,13 @@ fn main() {
     let s7 = &mut s5;
     //    println!("s6: {s6}, s7: {s7}"); // 这里会报错，因为变量所有权只能借给一个变量，后借的变量借到最终所有权
     let s8 = &s5;
-//    println!("s7:{s7}") // 这里会报错，因为可变引用的借用权已经被不可变引用覆盖
+    //    println!("s7:{s7}"); // 这里会报错，因为可变引用的借用权已经被不可变引用覆盖
     let s9 = &s5;
     println!("s8: {s8}, s9:{s9}"); // 这里没问题，因为不可变引用可以重复获得借用权
     let s10 = &mut s5;
-//    println!("s8: {s8}, s9: {s9}, s10: {s10}"); // 这里会报错，因为可变引用会清除之前所有的借用权
-//    println!("s8: {s8}, s9: {s9}"); // 这里会报错，因为可变引用会清除之前所有的借用权
+    //    println!("s8: {s8}, s9: {s9}, s10: {s10}"); // 这里会报错，因为可变引用会清除之前所有的借用权
+    //    println!("s8: {s8}, s9: {s9}"); // 这里会报错，因为可变引用会清除之前所有的借用权
+    println!("s10: {s10}");
 
     let first_word_end = get_first_word(s10);
     println!("first_word_end: {first_word_end}");
@@ -53,9 +55,8 @@ fn main() {
     let s11 = get_sub_str(s10, 0, 5);
     println!("s11: {s11}");
     s10.clear();
-//    println!("s11: {s11}"); // 会报错，因为s10.clear()中获取了s10的可变借用权，导致s11实用slice range获取的不可变借用权失效
-    println!("sub slice: {}", get_sub_str_use_slice(&s5[..]))
-
+    //    println!("s11: {s11}"); // 会报错，因为s10.clear()中获取了s10的可变借用权，导致s11实用slice range获取的不可变借用权失效
+    println!("sub slice: {}", get_sub_str_use_slice(&s5[..])) // 使用字符串切片代替字符串引用是更常见的做法
 }
 
 fn takes_and_gives_back(a_string: String) -> String {
@@ -101,5 +102,6 @@ fn get_sub_str(s: &String, start_index: usize, end_index: usize) -> &str {
     &s[start_index..end_index]
 }
 
-fn get_sub_str_use_slice(s: &str) -> &str {"hello"}
-
+fn get_sub_str_use_slice(s: &str) -> &str {
+    "hello"
+}
