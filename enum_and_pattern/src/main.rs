@@ -33,6 +33,13 @@ fn main() {
     let six = plus_one(five);
     println!("six: {:?}", six);
 
+    let x = 0u32;
+    match x {
+        1 => println!("111"),
+        2 => println!("222"),
+        _ => println!("let it go") // 下划线可以表示通配剩余穷举值
+    }
+
     let config_max = Some(3u32);
     if let Some(max) = config_max {
         println!("The maximum is configured to be {}", max);
@@ -41,6 +48,12 @@ fn main() {
     match config_max {
         Some(max) => println!("The maximum is configured to be {}", max),
         _ => (),
+    }
+
+    if let Some(4) = config_max {
+        println!("x is 3")
+    } else  {
+        println!("x is not 3")
     }
 }
 

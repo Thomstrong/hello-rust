@@ -56,7 +56,7 @@ fn main() {
     println!("s11: {s11}");
     s10.clear();
     //    println!("s11: {s11}"); // 会报错，因为s10.clear()中获取了s10的可变借用权，导致s11实用slice range获取的不可变借用权失效
-    println!("sub slice: {}", get_sub_str_use_slice(&s5[..])) // 使用字符串切片代替字符串引用是更常见的做法
+    println!("sub slice: {}, s5:{}", get_sub_str_use_slice(&s5[..]), s5) // 使用字符串切片代替字符串引用是更常见的做法, s5的可变引用给s10之后被清空
 }
 
 fn takes_and_gives_back(a_string: String) -> String {
@@ -103,5 +103,5 @@ fn get_sub_str(s: &String, start_index: usize, end_index: usize) -> &str {
 }
 
 fn get_sub_str_use_slice(s: &str) -> &str {
-    "hello"
+    return s;
 }
